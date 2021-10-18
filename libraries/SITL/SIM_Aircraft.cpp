@@ -357,8 +357,15 @@ void Aircraft::fill_fdm(struct sitl_fdm &fdm)
         fdm.home = home;
     }
     fdm.is_lock_step_scheduled = lock_step_scheduled;
+    /*
     fdm.latitude  = location.lat * 1.0e-7;
     fdm.longitude = location.lng * 1.0e-7;
+    */
+
+    Vector3d rel_pos = get_position_relhome();
+
+    fdm.latitude = rel_pos.x * 1.0e-7;
+    fdm.longitude = rel_pos.y * 1.0e-7;
     fdm.altitude  = location.alt * 1.0e-2;
     fdm.heading   = degrees(atan2f(velocity_ef.y, velocity_ef.x));
     fdm.speedN    = velocity_ef.x;
@@ -399,6 +406,13 @@ void Aircraft::fill_fdm(struct sitl_fdm &fdm)
     fdm.wind_vane_apparent.speed = wind_vane_apparent.speed;
 
     if (is_smoothed) {
+
+        Vector3d rel_pos_smooth = get_position_relhome();
+
+        fdm.latitude = rel_pos_smooth.x * 1.0e-7;
+        fdm.longitude = rel_pos_smooth.y * 1.0e-7;
+
+
         fdm.xAccel = smoothing.accel_body.x;
         fdm.yAccel = smoothing.accel_body.y;
         fdm.zAccel = smoothing.accel_body.z;
@@ -408,8 +422,12 @@ void Aircraft::fill_fdm(struct sitl_fdm &fdm)
         fdm.speedN    = smoothing.velocity_ef.x;
         fdm.speedE    = smoothing.velocity_ef.y;
         fdm.speedD    = smoothing.velocity_ef.z;
+        /*
         fdm.latitude  = smoothing.location.lat * 1.0e-7;
         fdm.longitude = smoothing.location.lng * 1.0e-7;
+        */
+        //fdm.latitude  = smoothing.position.x * 1.0e-7;
+        //fdm.longitude = smoothing.position.y * 1.0e-7;
         fdm.altitude  = smoothing.location.alt * 1.0e-2;
     }
 

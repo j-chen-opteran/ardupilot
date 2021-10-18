@@ -71,6 +71,10 @@ MOT_PWM_MIN     1000
 MOT_PWM_MAX     2000
 MOT_BAT_VOLT_MIN 9.6
 MOT_BAT_VOLT_MAX 12.8
+#disable GPS? 
+AHRS_GPS_USE 0
+#disable acro trainer >:) 
+ACRO_TRAINER 0
 # flightmodes
 # switch 1 Circle
 # switch 2 LAND

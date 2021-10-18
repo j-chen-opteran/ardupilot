@@ -451,9 +451,10 @@ const AP_Param::GroupInfo SIM::var_ins[] = {
     AP_SUBGROUPINFO(imu_tcal[2], "IMUT3_", 63, SIM, AP_InertialSensor::TCal),
     AP_GROUPEND
 };
-    
-/* report SITL state via MAVLink SIMSTATE*/
-void SIM::simstate_send(mavlink_channel_t chan) const
+
+/* mother of all bodges - swap sim_state_send with simstate_send */ 
+
+void SIM::sim_state_send(mavlink_channel_t chan) const
 {
     float yaw;
 
@@ -477,8 +478,9 @@ void SIM::simstate_send(mavlink_channel_t chan) const
                               state.longitude*1.0e7);
 }
 
-/* report SITL state via MAVLink SIM_STATE */
-void SIM::sim_state_send(mavlink_channel_t chan) const
+
+//another mod: keep the degrees instead of radians
+void SIM::simstate_send(mavlink_channel_t chan) const
 {
     // convert to same conventions as DCM
     float yaw = state.yawDeg;
