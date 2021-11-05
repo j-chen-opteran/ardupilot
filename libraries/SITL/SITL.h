@@ -53,6 +53,7 @@ struct sitl_fdm {
     double speedN, speedE, speedD; // m/s
     double xAccel, yAccel, zAccel;       // m/s/s in body frame
     double rollRate, pitchRate, yawRate; // degrees/s in body frame
+    float rel_pos_x, rel_pos_y; // relative position from home
     double rollDeg, pitchDeg, yawDeg;    // euler angles, degrees
     Quaternion quaternion;
     double airspeed; // m/s

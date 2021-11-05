@@ -3680,7 +3680,7 @@ void GCS_MAVLINK::send_sim_state() const
     if (sitl == nullptr) {
         return;
     }
-    sitl->sim_state_send(get_chan());
+    sitl->simstate_send(get_chan());
 #endif
 }
 
